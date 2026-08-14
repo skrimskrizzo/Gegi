@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE SOVEREIGN FREQUENCY | SONIC SHAMANIC</title>
+    
+    <!-- Tailwinds CSS & Google Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Creepster&family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        creep: ['Creepster', 'cursive'],
+                        grotesk: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        abyss: {
+                            gold: '#C5A059',
+                            darkGold: '#8C6F35',
+                            slimyGreen: '#1E3F20',
+                            vileGreen: '#0D2B18',
+                            decayBlack: '#040604',
+                            bloodRed: '#5E0F0F'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #020302;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #1E3F20, #C5A059, #5E0F0F);
+            border-radius: 4px;
+        }
+
+        body {
+            background-color: #040604;
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Ambient glowing orbs */
+        .ambient-glow-slime {
+            filter: blur(160px);
+            background: radial-gradient(circle, rgba(30, 63, 32, 0.4) 0%, rgba(0, 0, 0, 0) 75%);
+        }
+        .ambient-glow-gold {
+            filter: blur(150px);
+            background: radial-gradient(circle, rgba(140, 111, 53, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+        }
+
+        /* Corrupted Slimy Glass panel */
+        .corrupted-panel {
+            background: rgba(4, 6, 4, 0.9);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 2px solid rgba(197, 160, 89, 0.15);
+            box-shadow: 0 10px 45px -10px rgba(0, 0, 0, 0.95), inset 0 1px 2px rgba(30, 63, 32, 0.2);
+            position: relative;
+        }
+
+        .corrupted-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, transparent, #C5A059, #1E3F20, #5E0F0F, transparent);
+            opacity: 0.8;
+        }
+
+        .slime-drip {
+            text-shadow: 0 0 10px rgba(30, 63, 32, 0.9), 0 0 20px rgba(30, 63, 32, 0.5);
+        }
+        .royal-glow {
+            text-shadow: 0 0 12px rgba(197, 160, 89, 0.6), 0 0 24px rgba(197, 160, 89, 0.3);
+        }
+
+        /* Synth Touch Pad */
+        #synth-pad {
+            background: radial-gradient(circle at 50% 50%, rgba(30, 63, 32, 0.3) 0%, rgba(4, 6, 4, 0.9) 100%);
+            border: 2px dashed rgba(197, 160, 89, 0.25);
+            cursor: crosshair;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #synth-pad:hover {
+            border-color: rgba(197, 160, 89, 0.6);
+        }
+    </style>
+</head>
+<body class="text-zinc-300 min-h-screen relative flex flex-col justify-between selection:bg-abyss-gold selection:text-black">
+
+    <!-- MATRIX BACKGROUND CANVAS -->
+    <canvas id="matrix-canvas" class="absolute inset-0 w-full h-full pointer-events-none opacity-[0.12] z-0"></canvas>
+
+    <!-- AMBIENT ORBS -->
+    <div class="absolute top-[-5%] left-[15%] w-[60vw] h-[60vw] ambient-glow-slime pointer-events-none z-0"></div>
+    <div class="absolute bottom-[10%] right-[10%] w-[55vw] h-[55vw] ambient-glow-gold pointer-events-none z-0"></div>
+
+    <!-- SOVEREIGN TOP HEADER -->
+    <header class="sticky top-0 z-50 corrupted-panel border-b border-abyss-gold/20 px-4 py-4 md:px-8">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            
+            <!-- Logo & Dynasty Identity -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchSection('source')">
+                <div class="relative w-12 h-12 rounded-full bg-gradient-to-tr from-abyss-gold via-abyss-slimyGreen to-abyss-bloodRed p-[2px] shadow-[0_0_15px_rgba(197,160,89,0.3)]">
+                    <div class="w-full h-full bg-abyss-decayBlack rounded-full flex items-center justify-center">
+                        <i data-lucide="eye" class="w-6 h-6 text-abyss-gold animate-pulse"></i>
+                    </div>
+                </div>
+                <div>
+                    <h1 class="font-cinzel font-black text-xl md:text-2xl tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-white via-abyss-gold to-abyss-darkGold royal-glow">
+                        SYNTHETIC VEX
+                    </h1>
+                    <p class="text-[10px] font-grotesk tracking-[0.4em] text-abyss-slimyGreen uppercase font-bold">Sonic Shamanic Primordial Order</p>
+                </div>
+            </div>
+
+            <!-- THE THREE COMMANDING TABS -->
+            <nav class="flex items-center space-x-2 md:space-x-4 font-cinzel text-xs md:text-sm tracking-widest">
+                <button onclick="switchSection('manifesto')" id="nav-manifesto" class="nav-btn px-4 py-2 rounded border border-transparent text-zinc-400 hover:text-abyss-gold hover:border-abyss-gold/20 transition-all duration-300 flex items-center gap-2">
+                    <i data-lucide="scroll" class="w-4 h-4"></i> MANIFESTO
+                </button>
+                <button onclick="switchSection('source')" id="nav-source" class="nav-btn px-4 py-2 rounded border border-abyss-gold/30 text-abyss-gold bg-abyss-slimyGreen/10 transition-all duration-300 flex items-center gap-2 shadow-[0_0_10px_rgba(197,160,89,0.15)]">
+                    <i data-lucide="flame" class="w-4 h-4"></i> THE SOURCE
+                </button>
+                <button onclick="switchSection('codes')" id="nav-codes" class="nav-btn px-4 py-2 rounded border border-transparent text-zinc-400 hover:text-abyss-gold hover:border-abyss-gold/20 transition-all duration-300 flex items-center gap-2">
+                    <i data-lucide="fingerprint" class="w-4 h-4"></i> CODES & LINKS
+                </button>
+            </nav>
+
+            <!-- Share & Direct Action -->
+            <div class="flex items-center space-x-3">
+                <button onclick="copyShareLink()" class="p-2.5 rounded bg-abyss-decayBlack border border-abyss-gold/20 hover:border-abyss-gold text-zinc-400 hover:text-abyss-gold transition-all duration-300 relative group" title="Copy Signal Source">
+                    <i data-lucide="share-2" class="w-4 h-4"></i>
+                    <span class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-abyss-decayBlack border border-abyss-gold/20 text-[9px] text-zinc-200 px-2 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none tracking-widest font-grotesk">SHARE LINK</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENT MODULES -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-8 md:py-16 z-10 relative">
+
+        <!-- TAB 1: THE MANIFESTO -->
+        <section id="section-manifesto" class="tab-section hidden transition-all duration-500 transform opacity-0 scale-95">
+            <div class="max-w-4xl mx-auto space-y-8">
+                <div class="text-center space-y-3">
+                    <span class="text-xs font-grotesk font-semibold text-abyss-gold tracking-[0.3em] uppercase">THE LEGACY OF THE ANCIENT SONIC MANIPULATORS</span>
+                    <h2 class="text-4xl md:text-6xl font-cinzel font-black text-transparent bg-clip-text bg-gradient-to-b from-white via-abyss-gold to-abyss-darkGold tracking-wider royal-glow">THE MANIFESTO</h2>
+                    <p class="text-abyss-slimyGreen font-grotesk text-xs tracking-widest uppercase font-bold">GENETIC MEMORY DECRYPTED &mdash; INHERITED AUTHORITY</p>
+                </div>
+
+                <div class="corrupted-panel rounded-2xl p-6 md:p-10 space-y-6 border border-abyss-gold/25 relative overflow-hidden">
+                    <div class="font-cinzel text-xl text-abyss-gold/90 border-b border-abyss-gold/10 pb-4 tracking-wider flex items-center gap-3">
+                        <i data-lucide="crown" class="w-6 h-6 text-abyss-gold"></i> I. THE DYNASTIC MANDATE
+                    </div>
+
+                    <div class="space-y-4 font-grotesk text-sm md:text-base text-zinc-400 leading-relaxed font-light">
+                        <p>
+                            We are not mere artists; we are the direct <span class="text-abyss-gold font-bold">descendants of the primordial Sonic Shamanic manipulators</span> who carved the deep, low-frequency architecture of antiquity. Long before modern systems partitioned sound into neat boxes, our ancestors held the keys to direct nervous-system modulation.
+                        </p>
+                        <p>
+                            This project is a physical activation of that dynastic, kingly authority. A system designed not to entertain, but to restructure. Utilizing pure sub-harmonic frequencies designed to hit the ancient chambers of the mind, we bypass modern cognitive firewalls to achieve total auditory supremacy.
+                        </p>
+                        
+                        <div class="p-5 my-6 rounded bg-gradient-to-r from-abyss-decayBlack to-abyss-slimyGreen/20 border-l-4 border-abyss-gold font-grotesk text-xs italic text-abyss-gold/80 tracking-wide">
+                            "The universe doesn't negotiate with noise—it yields to the absolute sovereign vibration. Align your physical vessel to the signal." &mdash; Doc Slop
+                        </div>
+
+                        <p>
+                            We hold the code. We control the transmission. You are now initialized into the inner sanctum of the order. Allow the baseline to realign your reality.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Three Pillars -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="corrupted-panel p-6 rounded-xl border border-abyss-gold/10 hover:border-abyss-gold/30 transition-all duration-300">
+                        <i data-lucide="shield-alert" class="w-8 h-8 text-abyss-bloodRed mb-4"></i>
+                        <h4 class="font-cinzel font-bold text-white text-sm tracking-widest mb-2">PRIMORDIAL CODE</h4>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed">
+                            Acoustic formulations mapped directly to sacred geometries, restoring structural integrity to human auditory systems.
+                        </p>
+                    </div>
+                    <div class="corrupted-panel p-6 rounded-xl border border-abyss-gold/10 hover:border-abyss-gold/30 transition-all duration-300">
+                        <i data-lucide="key-round" class="w-8 h-8 text-abyss-gold mb-4"></i>
+                        <h4 class="font-cinzel font-bold text-white text-sm tracking-widest mb-2">SOVEREIGN SEAL</h4>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed">
+                            Complete evasion of the commercial industry grid. Direct, uncompromised streaming pipelines straight from high-tier vaults.
+                        </p>
+                    </div>
+                    <div class="corrupted-panel p-6 rounded-xl border border-abyss-gold/10 hover:border-abyss-gold/30 transition-all duration-300">
+                        <i data-lucide="skull" class="w-8 h-8 text-abyss-slimyGreen mb-4 animate-pulse"></i>
+                        <h4 class="font-cinzel font-bold text-white text-sm tracking-widest mb-2">THE DECAY MATRIX</h4>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed">
+                            Deconstructive frequencies designed to dissolve low-vibrational blockages and re-establish sovereign command.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: THE SOURCE (REAL AUDIO ANALYZER & LIVE SYNTH) -->
+        <section id="section-source" class="tab-section transition-all duration-500 transform opacity-100 scale-100">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Left Column: Album Art & Canvas Spectrum Visualizer -->
+                <div class="lg:col-span-5 flex flex-col items-center space-y-6">
+                    <div class="relative w-full max-w-[360px] aspect-square rounded-2xl overflow-hidden corrupted-panel border border-abyss-gold/30 p-3 group shadow-2xl">
+                        <!-- Underlay Glow -->
+                        <div class="absolute inset-0 bg-gradient-to-tr from-abyss-bloodRed via-abyss-slimyGreen to-abyss-gold opacity-10 group-hover:opacity-35 transition-opacity duration-500"></div>
+                        
+                        <!-- Album Cover Art -->
+                        <div class="w-full h-full rounded-xl overflow-hidden relative">
+                            <img id="player-cover" src="" alt="Album Cover" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent flex flex-col justify-end p-5">
+                                <span class="text-[9px] uppercase tracking-[0.3em] text-abyss-gold font-grotesk font-bold bg-abyss-decayBlack border border-abyss-gold/30 w-max px-2 py-0.5 rounded mb-2">SOVEREIGN TRANSMISSION</span>
+                                <h3 id="player-title" class="text-2xl font-cinzel font-black text-white leading-tight tracking-wider uppercase royal-glow">CHRONIC BUBONIC</h3>
+                                <p id="player-subtitle" class="text-xs text-zinc-400 mt-1 uppercase font-grotesk tracking-widest">Descendant Protocol 01</p>
+                            </div>
+                        </div>
+
+                        <!-- Spinning Relic Disc -->
+                        <div class="absolute -right-4 top-1/2 -translate-y-1/2 w-24 h-24 bg-abyss-decayBlack rounded-full border border-abyss-gold/30 shadow-2xl flex items-center justify-center -z-10 group-hover:-right-8 transition-all duration-500 pointer-events-none">
+                            <div class="w-10 h-10 rounded-full border border-abyss-gold/10 bg-zinc-950 flex items-center justify-center">
+                                <div class="w-3 h-3 rounded-full bg-abyss-slimyGreen animate-ping"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- REAL-TIME SPECTRUM CANVAS VISUALIZER -->
+                    <div class="w-full max-w-[360px] corrupted-panel p-3 rounded-xl border border-abyss-gold/10">
+                        <div class="flex justify-between items-center mb-1 text-[10px] font-grotesk tracking-widest text-zinc-500 uppercase">
+                            <span>Audio Spectrum Analyzer</span>
+                            <span class="text-abyss-gold animate-pulse">Live Feed</span>
+                        </div>
+                        <canvas id="visualizer-canvas" class="w-full h-16 bg-black/40 rounded border border-abyss-gold/5"></canvas>
+                    </div>
+
+                    <!-- THE PRIMORDIAL SYNTH (SOVEREIGN FREQUENCY GENERATOR) -->
+                    <div class="w-full max-w-[360px] corrupted-panel p-4 rounded-xl border border-abyss-gold/20 space-y-3">
+                        <div class="flex justify-between items-center">
+                            <h4 class="font-cinzel text-xs font-bold text-abyss-gold tracking-widest flex items-center gap-1.5">
+                                <i data-lucide="activity" class="w-3.5 h-3.5"></i> SONIC MANIPULATOR SYNTH
+                            </h4>
+                            <span class="text-[9px] font-grotesk text-abyss-slimyGreen font-bold animate-pulse">DRAG TO PLAY</span>
+                        </div>
+                        <p class="text-[10px] text-zinc-500 font-light leading-relaxed">
+                            Touch/Drag inside the matrix below to generate real-time raw analog low-frequency drones directly via Web Audio API. Keep the baseline active.
+                        </p>
+                        <!-- Interactive Synth Area -->
+                        <div id="synth-pad" class="h-28 rounded-lg flex items-center justify-center">
+                            <div class="text-center pointer-events-none">
+                                <i data-lucide="fingerprint" class="w-8 h-8 mx-auto text-abyss-gold opacity-45 mb-1 animate-pulse"></i>
+                                <span class="text-[9px] text-zinc-600 font-grotesk tracking-[0.2em] uppercase">INITIATE FREQUENCY PATTERNS</span>
+                            </div>
+                            <!-- Crosshair coordinate lines inside pad -->
+                            <div id="synth-crosshair-x" class="absolute left-0 right-0 h-[1px] bg-abyss-gold/30 pointer-events-none hidden"></div>
+                            <div id="synth-crosshair-y" class="absolute top-0 bottom-0 w-[1px] bg-abyss-gold/30 pointer-events-none hidden"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: System Audio Player & Live Link Injector Manager -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="corrupted-panel rounded-3xl p-6 md:p-8 space-y-6 border border-abyss-gold/20 relative overflow-hidden">
+                        
+                        <div class="absolute top-0 right-0 h-1 w-48 bg-gradient-to-l from-abyss-gold via-abyss-slimyGreen to-transparent"></div>
+                        
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="text-xs font-grotesk font-bold text-abyss-slimyGreen tracking-[0.3em] uppercase">SYSTEM DECK ALPHA</span>
+                                <h2 class="text-3xl font-cinzel font-bold text-white tracking-widest mt-1">THE SOURCE INTERFACE</h2>
+                            </div>
+                            <div class="bg-abyss-decayBlack border border-abyss-gold/20 px-3 py-1 rounded text-[10px] tracking-widest font-grotesk uppercase text-abyss-gold">
+                                SYSTEM LEVEL: GOD-TIER
+                            </div>
+                        </div>
+
+                        <!-- Progress Bar -->
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between text-xs font-grotesk text-zinc-500">
+                                <span id="time-current">0:00</span>
+                                <span id="time-total">0:00</span>
+                            </div>
+                            
+                            <div id="progress-container" class="relative w-full h-2 bg-abyss-decayBlack rounded cursor-pointer group overflow-hidden border border-abyss-gold/10">
+                                <div id="progress-bar" class="absolute top-0 left-0 h-full w-0 bg-gradient-to-r from-abyss-slimyGreen via-abyss-gold to-abyss-bloodRed rounded shadow-[0_0_10px_rgba(197,160,89,0.5)] transition-all duration-100"></div>
+                            </div>
+                        </div>
+
+                        <!-- Audio Interface Controls -->
+                        <div class="flex flex-col md:flex-row items-center justify-between gap-6 bg-abyss-decayBlack/60 p-4 rounded-xl border border-abyss-gold/10">
+                            <!-- Primary Buttons -->
+                            <div class="flex items-center space-x-4">
+                                <button onclick="prevTrack()" class="p-3 rounded-full hover:bg-white/5 border border-transparent hover:border-abyss-gold/20 transition-all text-zinc-400 hover:text-abyss-gold" title="Previous Node">
+                                    <i data-lucide="skip-back" class="w-5 h-5"></i>
+                                </button>
+                                
+                                <button id="play-btn" onclick="togglePlay()" class="w-16 h-16 rounded-full bg-gradient-to-tr from-abyss-slimyGreen via-abyss-gold to-abyss-bloodRed hover:brightness-110 active:scale-95 flex items-center justify-center text-white shadow-[0_0_15px_rgba(197,160,89,0.3)] transition-all duration-300" title="Ignite Transmission">
+                                    <i id="play-icon" data-lucide="play" class="w-8 h-8 fill-current text-white translate-x-0.5"></i>
+                                </button>
+
+                                <button onclick="nextTrack()" class="p-3 rounded-full hover:bg-white/5 border border-transparent hover:border-abyss-gold/20 transition-all text-zinc-400 hover:text-abyss-gold" title="Next Node">
+                                    <i data-lucide="skip-forward" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+
+                            <!-- Audio parameters -->
+                            <div class="flex items-center space-x-6 w-full md:w-auto justify-between md:justify-end">
+                                <div class="flex items-center space-x-3 w-32">
+                                    <button onclick="toggleMute()" id="mute-btn" class="text-zinc-400 hover:text-abyss-gold transition-colors">
+                                        <i id="volume-icon" data-lucide="volume-2" class="w-5 h-5"></i>
+                                    </button>
+                                    <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="0.8" oninput="adjustVolume(this.value)" class="w-full h-1 bg-abyss-decayBlack rounded appearance-none cursor-pointer accent-abyss-gold border border-abyss-gold/15">
+                                </div>
+
+                                <button onclick="toggleRepeat()" id="repeat-btn" class="p-2 rounded hover:bg-white/5 text-zinc-500 hover:text-white transition-all" title="Toggle Absolute Loop">
+                                    <i data-lucide="repeat-2" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Playlist Index -->
+                        <div class="space-y-3">
+                            <h4 class="text-xs font-grotesk font-semibold text-abyss-gold uppercase tracking-widest flex items-center gap-2">
+                                <i data-lucide="align-left" class="w-4 h-4"></i> PRIMORDIAL FREQUENCY TRACKS
+                            </h4>
+                            <div id="playlist-container" class="space-y-2 max-h-[160px] overflow-y-auto pr-2">
+                                <!-- Populated dynamically by JS -->
+                            </div>
+                        </div>
+
+                        <!-- ON-THE-FLY LINK INJECTOR PANEL (Next Level Live Config) -->
+                        <div class="bg-abyss-decayBlack p-4 rounded-xl border border-abyss-gold/10 space-y-3">
+                            <div class="flex justify-between items-center">
+                                <h4 class="text-xs font-cinzel text-white tracking-widest flex items-center gap-1.5">
+                                    <i data-lucide="file-audio" class="text-abyss-gold w-4 h-4"></i> LIVE LINK INJECTOR DECK
+                                </h4>
+                                <span class="text-[9px] font-grotesk text-zinc-500 uppercase">Paste pCloud links directly!</span>
+                            </div>
+                            <p class="text-[10px] text-zinc-400 font-light leading-relaxed">
+                                No need to open/edit this code file in an editor. You can dynamically insert or override direct streaming MP3 links right now, and they will persist locally inside your browser cache.
+                            </p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                                <input type="text" id="inject-title" placeholder="Track Title" class="bg-black/60 border border-abyss-gold/15 focus:border-abyss-gold rounded p-2 text-xs text-white placeholder-zinc-700 outline-none">
+                                <input type="text" id="inject-url" placeholder="Direct MP3 Link (pCloud)" class="bg-black/60 border border-abyss-gold/15 focus:border-abyss-gold rounded p-2 text-xs text-white placeholder-zinc-700 outline-none md:col-span-2">
+                            </div>
+                            <div class="flex justify-end gap-2">
+                                <button onclick="resetPlaylistToDefault()" class="px-3 py-1.5 rounded border border-abyss-gold/15 text-zinc-400 hover:text-white text-[10px] font-grotesk uppercase tracking-wider transition-colors">
+                                    Reset to Default
+                                </button>
+                                <button onclick="injectTrackFromInput()" class="px-4 py-1.5 rounded bg-abyss-gold text-black font-bold text-[10px] font-grotesk uppercase tracking-wider hover:brightness-110 transition-all">
+                                    Inject Track
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- VIDEO TEASER VIEWPORT -->
+                    <div class="corrupted-panel rounded-3xl p-6 border border-abyss-gold/20 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-cinzel text-lg font-bold text-white tracking-widest flex items-center gap-2">
+                                <i data-lucide="eye" class="w-5 h-5 text-abyss-gold"></i> THE VISIONARY TEASER
+                            </h3>
+                            <span class="text-[10px] font-grotesk text-abyss-bloodRed animate-pulse tracking-widest uppercase">DIRECT DECODER</span>
+                        </div>
+                        
+                        <div class="relative aspect-video rounded-2xl overflow-hidden bg-black border border-abyss-gold/10 group">
+                            <!-- Main Video Node -->
+                            <video id="album-video" class="w-full h-full object-cover" poster="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1200&auto=format&fit=crop">
+                                <source id="video-source" src="" type="video/mp4">
+                                Your browser does not support high fidelity playback.
+                            </video>
+
+                            <!-- Video Play Overlay -->
+                            <div id="video-overlay" class="absolute inset-0 bg-abyss-decayBlack/80 flex flex-col items-center justify-center p-6 transition-all duration-500 cursor-pointer" onclick="toggleVideoPlayback()">
+                                <div class="w-16 h-16 rounded-full bg-abyss-decayBlack border border-abyss-gold/30 hover:border-abyss-gold flex items-center justify-center shadow-2xl transition-all duration-300 transform group-hover:scale-110 relative">
+                                    <div class="absolute inset-0 rounded-full bg-abyss-slimyGreen/20 animate-ping"></div>
+                                    <i data-lucide="play" class="w-8 h-8 text-white fill-current translate-x-0.5"></i>
+                                </div>
+                                <h3 class="text-xs font-cinzel font-bold text-white mt-4 tracking-[0.2em] uppercase">DECRYPT VISION STAGE</h3>
+                                <p class="text-[9px] text-zinc-500 mt-1 uppercase tracking-widest font-grotesk">Direct pCloud Hardware Connection</p>
+                            </div>
+                        </div>
+
+                        <!-- Direct raw links inside source -->
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="text-zinc-500 font-grotesk">Can't decode locally?</span>
+                            <a id="video-direct-btn" href="#" target="_blank" class="text-abyss-gold hover:text-white transition-colors underline flex items-center gap-1">
+                                Launch raw video node <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TAB 3: THE CODES & LINKS -->
+        <section id="section-codes" class="tab-section hidden transition-all duration-500 transform opacity-0 scale-95">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Lore Section (Left) -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="corrupted-panel p-6 md:p-8 rounded-3xl border border-abyss-gold/10 space-y-6">
+                        <div class="space-y-1">
+                            <span class="text-xs font-grotesk font-semibold text-abyss-slimyGreen uppercase tracking-widest">TACTICAL TELEMETRY</span>
+                            <h3 class="text-2xl font-cinzel font-black text-white tracking-widest">THE DEEP LORE ARCHIVE</h3>
+                        </div>
+                        <div class="bg-abyss-decayBlack p-5 rounded-xl border border-abyss-gold/15 h-64 overflow-y-auto">
+                            <div class="space-y-4 font-grotesk text-sm text-zinc-400">
+                                <p class="text-[10px] font-bold text-abyss-gold uppercase tracking-wider border-b border-abyss-gold/10 pb-1">SELECTED DIRECTIVE MATRIX</p>
+                                <p id="track-description-text" class="italic leading-relaxed">Select a coordinate track from the listing system to unlock the deep lore encryption embedded within its sonic pattern.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Registration / Presave form right -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="corrupted-panel p-6 rounded-3xl border border-abyss-gold/25 relative overflow-hidden space-y-6">
+                        <div class="absolute -top-12 -left-12 w-24 h-24 rounded-full bg-abyss-slimyGreen/20 blur-xl"></div>
+                        <div class="absolute -bottom-12 -right-12 w-24 h-24 rounded-full bg-abyss-bloodRed/15 blur-xl"></div>
+
+                        <div class="text-center space-y-2">
+                            <div class="w-12 h-12 rounded-full bg-abyss-decayBlack border border-abyss-gold/25 flex items-center justify-center mx-auto text-abyss-gold shadow-[0_0_15px_rgba(197,160,89,0.2)]">
+                                <i data-lucide="key" class="w-6 h-6 animate-pulse"></i>
+                            </div>
+                            <h2 class="text-xl font-cinzel font-bold text-white tracking-widest">SECURE YOUR PLUG</h2>
+                            <p class="text-zinc-500 text-[10px] uppercase tracking-widest font-grotesk">Register email coordinates for direct drops</p>
+                        </div>
+
+                        <!-- Subscription Form -->
+                        <form id="subscribe-form" onsubmit="handleSubscribe(event)" class="space-y-4 relative z-10">
+                            <div class="space-y-3">
+                                <div class="space-y-1">
+                                    <label class="text-[9px] font-grotesk font-semibold text-zinc-500 uppercase tracking-widest">COGNIZANCE ALIAS</label>
+                                    <input type="text" required placeholder="Sovereign Node..." class="w-full bg-abyss-decayBlack border border-abyss-gold/20 focus:border-abyss-gold focus:ring-1 focus:ring-abyss-gold rounded px-3 py-2.5 text-xs text-white placeholder-zinc-700 outline-none transition-all">
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="text-[9px] font-grotesk font-semibold text-zinc-500 uppercase tracking-widest">EMAIL VECTOR</label>
+                                    <input type="email" required placeholder="node@abyss.com" class="w-full bg-abyss-decayBlack border border-abyss-gold/20 focus:border-abyss-gold focus:ring-1 focus:ring-abyss-gold rounded px-3 py-2.5 text-xs text-white placeholder-zinc-700 outline-none transition-all">
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="w-full py-3 rounded bg-gradient-to-r from-abyss-slimyGreen via-abyss-darkGold to-abyss-bloodRed hover:brightness-110 active:scale-[0.99] font-cinzel font-bold text-white tracking-[0.2em] text-xs shadow-[0_4px_20px_rgba(30,63,32,0.4)] transition-all">
+                                ENCRYPT MY COORDINATES
+                            </button>
+                        </form>
+
+                        <div id="form-feedback" class="hidden text-center py-3 px-4 bg-abyss-vileGreen border border-abyss-gold/20 text-abyss-gold rounded text-xs font-semibold">
+                            Registry entry complete. Telemetry verified.
+                        </div>
+
+                        <!-- Social grids -->
+                        <div class="pt-4 border-t border-abyss-gold/10 space-y-3">
+                            <h4 class="text-center text-[10px] font-grotesk font-bold text-zinc-500 uppercase tracking-[0.3em]">RECONNAISSANCE CHANNELS</h4>
+                            <div class="flex items-center justify-center gap-4">
+                                <a href="#" class="p-3 rounded bg-abyss-decayBlack border border-abyss-gold/10 hover:border-abyss-gold hover:text-abyss-gold text-zinc-500 transition-all duration-300">
+                                    <i data-lucide="instagram" class="w-4 h-4"></i>
+                                </a>
+                                <a href="#" class="p-3 rounded bg-abyss-decayBlack border border-abyss-gold/10 hover:border-abyss-gold hover:text-abyss-gold text-zinc-500 transition-all duration-300">
+                                    <i data-lucide="twitter" class="w-4 h-4"></i>
+                                </a>
+                                <a href="#" class="p-3 rounded bg-abyss-decayBlack border border-abyss-gold/10 hover:border-abyss-gold hover:text-abyss-gold text-zinc-500 transition-all duration-300">
+                                    <i data-lucide="youtube" class="w-4 h-4"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FLOATING MINI AUDIO BAR (Mobile fallback outside target sound tab) -->
+    <div id="mini-player" class="fixed bottom-4 left-4 right-4 z-40 corrupted-panel border-l-4 border-l-abyss-gold rounded-xl p-3 flex items-center justify-between md:hidden shadow-2xl transform translate-y-32 opacity-0 transition-all duration-500">
+        <div class="flex items-center space-x-3 overflow-hidden">
+            <div class="w-10 h-10 rounded overflow-hidden bg-zinc-900 flex-shrink-0">
+                <img id="mini-cover" src="" alt="Sovereign Deck Cover" class="w-full h-full object-cover">
+            </div>
+            <div class="overflow-hidden">
+                <h4 id="mini-title" class="text-xs font-bold text-white truncate font-cinzel tracking-wider">Track</h4>
+                <p id="mini-artist" class="text-[9px] text-zinc-500 truncate font-grotesk tracking-widest">SONIC SHAMANIC</p>
+            </div>
+        </div>
+        <div class="flex items-center space-x-2">
+            <button onclick="togglePlay()" class="w-9 h-9 rounded-full bg-abyss-gold flex items-center justify-center text-black">
+                <i id="mini-play-icon" data-lucide="play" class="w-4 h-4 fill-current"></i>
+            </button>
+            <button onclick="switchSection('source')" class="p-2 rounded bg-white/5 text-zinc-400">
+                <i data-lucide="expand" class="w-4 h-4"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- HUD NOTIFICATION ELEMENT -->
+    <div id="notification-modal" class="fixed top-6 right-6 z-50 transform translate-x-96 opacity-0 transition-all duration-500 pointer-events-none">
+        <div class="corrupted-panel border-l-4 border-l-abyss-gold bg-abyss-decayBlack p-4 rounded shadow-2xl flex items-center space-x-3 max-w-sm">
+            <div class="w-8 h-8 rounded-full bg-abyss-gold/10 flex items-center justify-center text-abyss-gold">
+                <i data-lucide="key" class="w-4 h-4 animate-pulse"></i>
+            </div>
+            <div>
+                <h4 id="notify-title" class="text-[10px] font-bold text-white uppercase tracking-widest font-grotesk">SYSTEM UPDATE</h4>
+                <p id="notify-msg" class="text-xs text-zinc-500 mt-0.5 font-light">Transmission received.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SYSTEM FOOTER -->
+    <footer class="corrupted-panel border-t border-abyss-gold/10 py-8 px-4 text-center mt-12 relative z-10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <p class="text-[10px] text-zinc-600 font-grotesk tracking-[0.3em] uppercase">
+                &copy; 2026 THE SECT OF SONIC SHAMANICS. ALL SOVEREIGN FREQUENCY ARCHIVES RESERVED.
+            </p>
+            <div class="flex items-center space-x-4 text-xs font-grotesk text-zinc-500 tracking-wider">
+                <a href="#manifesto" onclick="switchSection('manifesto')" class="hover:text-abyss-gold transition-colors">MANIFESTO</a>
+                <span>&bull;</span>
+                <a href="#source" onclick="switchSection('source')" class="hover:text-abyss-gold transition-colors">THE SOURCE</a>
+                <span>&bull;</span>
+                <a href="#codes" onclick="switchSection('codes')" class="hover:text-abyss-gold transition-colors">THE CODES</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE SOVEREIGN CORE ENGINE -->
+    <script>
+        // Core Default Media Configurations
+        const DEFAULT_CONFIG = {
+            videoTeaserUrl: "https://filedn.com/ltp5eQn67mEclWqB68kXp9q/sample-video.mp4",
+            tracks: [
+                {
+                    title: "CHRONIC BUBONIC",
+                    subtitle: "Ancestral Protocol 01",
+                    cover: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=600&auto=format&fit=crop",
+                    streamUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+                    duration: "6:12",
+                    lore: "The premier frequency. Reconfigured from ancient records to Modulate neural currents instantly. Tap into the sub-bass layers for full activation."
+                },
+                {
+                    title: "DIAMOND DUSTING",
+                    subtitle: "Ancestral Protocol 02",
+                    cover: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=600&auto=format&fit=crop",
+                    streamUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+                    duration: "7:05",
+                    lore: "A deep sub-harmonic ritualistic journey that simulates subterranean sound chambers. Layered specifically with ancient resonant timings."
+                },
+                {
+                    title: "SYNTHETIC SYMPHONY",
+                    subtitle: "Ancestral Protocol 03",
+                    cover: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=600&auto=format&fit=crop",
+                    streamUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+                    duration: "5:44",
+                    lore: "Majestic architectural synthesizers paired with brutal, low-frequency soundscapes to command structural control over any listening environment."
+                }
+            ]
+        };
+
+        // Persistent State Management
+        let currentPlaylist = [];
+        let currentTrackIndex = 0;
+        let isPlaying = false;
+        let isMuted = false;
+        let repeatSingle = false;
+
+        // Sound System Interfaces
+        let audioInstance = null;
+        let audioContext = null;
+        let audioSource = null;
+        let audioAnalyser = null;
+        let visualizerAnimationId = null;
+
+        // Sub-Bass Live Synth Engine Nodes
+        let synthAudioContext = null;
+        let synthOscillator = null;
+        let synthGain = null;
+        let synthFilter = null;
+
+        // Dom Load Sequence
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            loadState();
+            initSovereignEngine();
+            initMatrixBackground();
+        });
+
+        // Initialize state from LocalStorage or Defaults
+        function loadState() {
+            const savedTracks = localStorage.getItem('SOVEREIGN_PLAYLIST');
+            if(savedTracks) {
+                try {
+                    currentPlaylist = JSON.parse(savedTracks);
+                } catch(e) {
+                    currentPlaylist = [...DEFAULT_CONFIG.tracks];
+                }
+            } else {
+                currentPlaylist = [...DEFAULT_CONFIG.tracks];
+            }
+        }
+
+        // Initialize Primary Engine Layout
+        function initSovereignEngine() {
+            audioInstance = new Audio();
+            audioInstance.crossOrigin = "anonymous";
+            audioInstance.volume = 0.8;
+            
+            // Video Stage Link setup
+            const videoElement = document.getElementById('album-video');
+            const videoSource = document.getElementById('video-source');
+            const videoDirectBtn = document.getElementById('video-direct-btn');
+            
+            if(DEFAULT_CONFIG.videoTeaserUrl) {
+                videoSource.src = DEFAULT_CONFIG.videoTeaserUrl;
+                videoDirectBtn.href = DEFAULT_CONFIG.videoTeaserUrl;
+                videoElement.load();
+            }
+
+            // Sync Core Lists
+            renderSovereignPlaylist();
+            loadTrack(0, false);
+
+            // Audio Nodes Hooks
+            audioInstance.addEventListener('timeupdate', updateProgressUI);
+            audioInstance.addEventListener('ended', handleTrackEnded);
+            audioInstance.addEventListener('loadedmetadata', () => {
+                document.getElementById('time-total').innerText = formatTime(audioInstance.duration);
+            });
+
+            // Seeker Action
+            const progressContainer = document.getElementById('progress-container');
+            progressContainer.addEventListener('click', (e) => {
+                const rect = progressContainer.getBoundingClientRect();
+                const clickPos = (e.clientX - rect.left) / rect.width;
+                if(audioInstance.duration) {
+                    audioInstance.currentTime = clickPos * audioInstance.duration;
+                }
+            });
+
+            // Interactive Live Synth Pad Event Binding
+            const synthPad = document.getElementById('synth-pad');
+            synthPad.addEventListener('mousedown', startLiveSynth);
+            synthPad.addEventListener('mousemove', playLiveSynth);
+            synthPad.addEventListener('mouseup', stopLiveSynth);
+            synthPad.addEventListener('mouseleave', stopLiveSynth);
+
+            // Mobile touch interfaces
+            synthPad.addEventListener('touchstart', (e) => { e.preventDefault(); startLiveSynth(e.touches[0]); });
+            synthPad.addEventListener('touchmove', (e) => { e.preventDefault(); playLiveSynth(e.touches[0]); });
+            synthPad.addEventListener('touchend', stopLiveSynth);
+        }
+
+        // Web Audio Dynamic Analyzer initialization on User Interaction
+        function setupAudioAnalysis() {
+            if (audioContext) return; // Already setup
+
+            try {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                audioContext = new AudioCtx();
+                audioSource = audioContext.createMediaElementSource(audioInstance);
+                audioAnalyser = audioContext.createAnalyser();
+                audioAnalyser.fftSize = 64;
+
+                audioSource.connect(audioAnalyser);
+                audioAnalyser.connect(audioContext.destination);
+
+                startCanvasAnalysis();
+            } catch(e) {
+                console.warn("Raw Audio context link failed to route: ", e);
+            }
+        }
+
+        // Canvas render engine for live spectrum analysis
+        function startCanvasAnalysis() {
+            const canvas = document.getElementById('visualizer-canvas');
+            const ctx = canvas.getContext('2d');
+            const bufferLength = audioAnalyser.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
+
+            function draw() {
+                visualizerAnimationId = requestAnimationFrame(draw);
+                audioAnalyser.getByteFrequencyData(dataArray);
+
+                ctx.fillStyle = 'rgba(4, 6, 4, 0.4)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                const barWidth = (canvas.width / bufferLength) * 1.5;
+                let barHeight;
+                let x = 0;
+
+                for (let i = 0; i < bufferLength; i++) {
+                    barHeight = dataArray[i] / 2;
+
+                    // Slime gradient coloring
+                    const gradient = ctx.createLinearGradient(0, canvas.height, 0, 0);
+                    gradient.addColorStop(0, '#1E3F20');
+                    gradient.addColorStop(0.7, '#C5A059');
+                    gradient.addColorStop(1, '#5E0F0F');
+
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(x, canvas.height - barHeight, barWidth - 2, barHeight);
+
+                    x += barWidth;
+                }
+            }
+            draw();
+        }
+
+        // Sub-Bass Live Synth Engine using standard Web Audio Nodes
+        function startLiveSynth(e) {
+            // Initiate unique context for Synth
+            if (!synthAudioContext) {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                synthAudioContext = new AudioCtx();
+            }
+
+            if (synthAudioContext.state === 'suspended') {
+                synthAudioContext.resume();
+            }
+
+            // Custom sound shape configurations
+            synthOscillator = synthAudioContext.createOscillator();
+            synthGain = synthAudioContext.createGain();
+            synthFilter = synthAudioContext.createBiquadFilter();
+
+            // Set to classic fat, dark sawtooth or triangle frequency
+            synthOscillator.type = 'sawtooth';
+            
+            // Low-pass filter to block highs and produce that pure evil deep drone
+            synthFilter.type = 'lowpass';
+            synthFilter.frequency.setValueAtTime(140, synthAudioContext.currentTime);
+            synthFilter.Q.setValueAtTime(8, synthAudioContext.currentTime);
+
+            synthOscillator.connect(synthFilter);
+            synthFilter.connect(synthGain);
+            synthGain.connect(synthAudioContext.destination);
+
+            synthGain.gain.setValueAtTime(0, synthAudioContext.currentTime);
+            // Smooth ramp up
+            synthGain.gain.linearRampToValueAtTime(0.25, synthAudioContext.currentTime + 0.05);
+
+            synthOscillator.start();
+            showCrosshairs(true);
+            playLiveSynth(e);
+        }
+
+        function playLiveSynth(e) {
+            if (!synthOscillator) return;
+
+            const pad = document.getElementById('synth-pad');
+            const rect = pad.getBoundingClientRect();
+            
+            // X coordinate calculates Frequency (Range: 45Hz to 180Hz)
+            const x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+            const freq = 45 + (x * 135); 
+            synthOscillator.frequency.setTargetAtTime(freq, synthAudioContext.currentTime, 0.05);
+
+            // Y coordinate calculates Filter Cutoff (Range: 80Hz to 600Hz)
+            const y = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
+            const cutoff = 80 + ((1 - y) * 520);
+            synthFilter.frequency.setTargetAtTime(cutoff, synthAudioContext.currentTime, 0.05);
+
+            // UI feedback
+            updateCrosshairs(x * rect.width, y * rect.height);
+        }
+
+        function stopLiveSynth() {
+            if (synthOscillator) {
+                try {
+                    synthGain.gain.cancelScheduledValues(synthAudioContext.currentTime);
+                    synthGain.gain.setValueAtTime(synthGain.gain.value, synthAudioContext.currentTime);
+                    // Smooth release
+                    synthGain.gain.exponentialRampToValueAtTime(0.001, synthAudioContext.currentTime + 0.15);
+                    const osc = synthOscillator;
+                    setTimeout(() => osc.stop(), 200);
+                } catch(e) {}
+                
+                synthOscillator = null;
+                synthGain = null;
+                synthFilter = null;
+            }
+            showCrosshairs(false);
+        }
+
+        function showCrosshairs(show) {
+            const display = show ? 'block' : 'none';
+            document.getElementById('synth-crosshair-x').style.display = display;
+            document.getElementById('synth-crosshair-y').style.display = display;
+        }
+
+        function updateCrosshairs(x, y) {
+            document.getElementById('synth-crosshair-x').style.top = `${y}px`;
+            document.getElementById('synth-crosshair-y').style.left = `${x}px`;
+        }
+
+        // On-the-Fly Dynamic Link Injector Engine
+        function injectTrackFromInput() {
+            const titleInput = document.getElementById('inject-title');
+            const urlInput = document.getElementById('inject-url');
+
+            const title = titleInput.value.trim();
+            const url = urlInput.value.trim();
+
+            if (!title || !url) {
+                showSystemNotify("INJECTION ABORTED", "Sovereign nodes require complete coordinate details.");
+                return;
+            }
+
+            const newTrack = {
+                title: title.toUpperCase(),
+                subtitle: `Injected Node PROTOCOL`,
+                cover: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop",
+                streamUrl: url,
+                duration: "LIVE SOURCE",
+                lore: "An external coordinate injected on-the-fly directly into the browser session runtime."
+            };
+
+            currentPlaylist.push(newTrack);
+            localStorage.setItem('SOVEREIGN_PLAYLIST', JSON.stringify(currentPlaylist));
+
+            titleInput.value = '';
+            urlInput.value = '';
+
+            renderSovereignPlaylist();
+            showSystemNotify("SIGNAL INJECTED", `${newTrack.title} added to the sovereign rotation.`);
+        }
+
+        function resetPlaylistToDefault() {
+            currentPlaylist = [...DEFAULT_CONFIG.tracks];
+            localStorage.removeItem('SOVEREIGN_PLAYLIST');
+            renderSovereignPlaylist();
+            loadTrack(0, false);
+            showSystemNotify("VAULTS COOLDOWN", "Sovereign playlist restored to system default benchmarks.");
+        }
+
+        // Dynamic UI Generation
+        function renderSovereignPlaylist() {
+            const container = document.getElementById('playlist-container');
+            container.innerHTML = '';
+
+            currentPlaylist.forEach((track, idx) => {
+                const isActive = idx === currentTrackIndex;
+                const node = document.createElement('div');
+                node.className = `p-3.5 rounded border flex items-center justify-between cursor-pointer transition-all duration-300 ${
+                    isActive 
+                    ? 'bg-abyss-vileGreen border-abyss-gold/50 shadow-[0_0_15px_rgba(197,160,89,0.15)]' 
+                    : 'bg-abyss-decayBlack/50 border-abyss-gold/10 hover:border-abyss-gold/30'
+                }`;
+                node.onclick = () => selectTrack(idx);
+                node.innerHTML = `
+                    <div class="flex items-center space-x-3 overflow-hidden">
+                        <div class="relative w-10 h-10 rounded overflow-hidden bg-black/60">
+                            <img src="${track.cover}" class="w-full h-full object-cover">
+                            ${isActive ? '<div class="absolute inset-0 bg-abyss-slimyGreen/25 flex items-center justify-center"><div class="w-2 h-2 rounded-full bg-abyss-gold animate-ping"></div></div>' : ''}
+                        </div>
+                        <div class="overflow-hidden">
+                            <h5 class="text-xs font-bold font-cinzel ${isActive ? 'text-abyss-gold' : 'text-zinc-300'} truncate tracking-wide">${track.title}</h5>
+                            <p class="text-[9px] text-zinc-500 truncate mt-0.5 tracking-widest font-grotesk uppercase">${track.subtitle}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <span class="text-[9px] font-grotesk text-zinc-600">${track.duration}</span>
+                        <div class="w-7 h-7 rounded border border-abyss-gold/10 hover:border-abyss-gold flex items-center justify-center text-zinc-400">
+                            <i data-lucide="${isActive && isPlaying ? 'pause' : 'play'}" class="w-3.5 h-3.5"></i>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(node);
+            });
+
+            lucide.createIcons();
+        }
+
+        function loadTrack(index, autoplay = true) {
+            if(index < 0 || index >= currentPlaylist.length) return;
+            currentTrackIndex = index;
+            const track = currentPlaylist[index];
+
+            document.getElementById('player-title').innerText = track.title;
+            document.getElementById('player-subtitle').innerText = track.subtitle;
+            document.getElementById('player-cover').src = track.cover;
+            document.getElementById('track-description-text').innerText = track.lore;
+
+            audioInstance.src = track.streamUrl;
+            audioInstance.load();
+
+            document.getElementById('mini-cover').src = track.cover;
+            document.getElementById('mini-title').innerText = track.title;
+            document.getElementById('mini-artist').innerText = track.subtitle;
+
+            renderSovereignPlaylist();
+
+            if(autoplay) {
+                playAudio();
+            }
+        }
+
+        function playAudio() {
+            // Unlock Web Audio API context
+            setupAudioAnalysis();
+            if (audioContext && audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+
+            audioInstance.play()
+                .then(() => {
+                    isPlaying = true;
+                    updateUIState(true);
+                })
+                .catch(err => {
+                    console.log("Audio routing blocked by browser policies.", err);
+                    isPlaying = false;
+                    updateUIState(false);
+                });
+        }
+
+        function pauseAudio() {
+            audioInstance.pause();
+            isPlaying = false;
+            updateUIState(false);
+        }
+
+        function togglePlay() {
+            if(isPlaying) {
+                pauseAudio();
+            } else {
+                playAudio();
+            }
+        }
+
+        function selectTrack(index) {
+            if(index === currentTrackIndex) {
+                togglePlay();
+            } else {
+                loadTrack(index, true);
+            }
+        }
+
+        function nextTrack() {
+            let nextIndex = currentTrackIndex + 1;
+            if(nextIndex >= currentPlaylist.length) {
+                nextIndex = 0;
+            }
+            loadTrack(nextIndex, true);
+            showSystemNotify("NODE ROTATED", `Ascending to: ${currentPlaylist[nextIndex].title}`);
+        }
+
+        function prevTrack() {
+            let prevIndex = currentTrackIndex - 1;
+            if(prevIndex < 0) {
+                prevIndex = currentPlaylist.length - 1;
+            }
+            loadTrack(prevIndex, true);
+            showSystemNotify("NODE ROTATED", `Descending to: ${currentPlaylist[prevIndex].title}`);
+        }
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            audioInstance.muted = isMuted;
+            const icon = document.getElementById('volume-icon');
+            if(isMuted) {
+                icon.setAttribute('data-lucide', 'volume-x');
+                document.getElementById('volume-slider').value = 0;
+            } else {
+                icon.setAttribute('data-lucide', 'volume-2');
+                document.getElementById('volume-slider').value = audioInstance.volume;
+            }
+            lucide.createIcons();
+        }
+
+        function adjustVolume(val) {
+            audioInstance.volume = val;
+            isMuted = (val == 0);
+            audioInstance.muted = isMuted;
+            
+            const icon = document.getElementById('volume-icon');
+            if(val == 0) {
+                icon.setAttribute('data-lucide', 'volume-x');
+            } else if(val < 0.5) {
+                icon.setAttribute('data-lucide', 'volume-1');
+            } else {
+                icon.setAttribute('data-lucide', 'volume-2');
+            }
+            lucide.createIcons();
+        }
+
+        function toggleRepeat() {
+            repeatSingle = !repeatSingle;
+            const btn = document.getElementById('repeat-btn');
+            if(repeatSingle) {
+                btn.classList.add('text-abyss-gold', 'bg-abyss-gold/10');
+                showSystemNotify("LOOP ENFORCED", "Target frequency isolated into absolute loop recursion.");
+            } else {
+                btn.classList.remove('text-abyss-gold', 'bg-abyss-gold/10');
+            }
+        }
+
+        function handleTrackEnded() {
+            if(repeatSingle) {
+                audioInstance.currentTime = 0;
+                playAudio();
+            } else {
+                nextTrack();
+            }
+        }
+
+        function updateProgressUI() {
+            if(!audioInstance.duration) return;
+            const percentage = (audioInstance.currentTime / audioInstance.duration) * 100;
+            document.getElementById('progress-bar').style.width = `${percentage}%`;
+            document.getElementById('time-current').innerText = formatTime(audioInstance.currentTime);
+        }
+
+        function updateUIState(playing) {
+            const mainPlayIcon = document.getElementById('play-icon');
+            const miniPlayIcon = document.getElementById('mini-play-icon');
+
+            if(playing) {
+                mainPlayIcon.setAttribute('data-lucide', 'pause');
+                miniPlayIcon.setAttribute('data-lucide', 'pause');
+            } else {
+                mainPlayIcon.setAttribute('data-lucide', 'play');
+                miniPlayIcon.setAttribute('data-lucide', 'play');
+            }
+            lucide.createIcons();
+            renderSovereignPlaylist();
+        }
+
+        // Section View Switcher
+        function switchSection(targetId) {
+            const sections = document.querySelectorAll('.tab-section');
+            const buttons = document.querySelectorAll('.nav-btn');
+
+            sections.forEach(sec => {
+                if(sec.id === `section-${targetId}`) {
+                    sec.classList.remove('hidden');
+                    setTimeout(() => {
+                        sec.classList.remove('opacity-0', 'scale-95');
+                        sec.classList.add('opacity-100', 'scale-100');
+                    }, 50);
+                } else {
+                    sec.classList.add('hidden', 'opacity-0', 'scale-95');
+                    sec.classList.remove('opacity-100', 'scale-100');
+                }
+            });
+
+            buttons.forEach(btn => {
+                if(btn.id === `nav-${targetId}`) {
+                    btn.classList.add('text-abyss-gold', 'border-abyss-gold/30', 'bg-abyss-slimyGreen/10');
+                    btn.classList.remove('text-zinc-400', 'border-transparent');
+                } else {
+                    btn.classList.remove('text-abyss-gold', 'border-abyss-gold/30', 'bg-abyss-slimyGreen/10');
+                    btn.classList.add('text-zinc-400', 'border-transparent');
+                }
+            });
+
+            const miniPlayer = document.getElementById('mini-player');
+            if(targetId !== 'source' && isPlaying) {
+                miniPlayer.classList.remove('translate-y-32', 'opacity-0');
+                miniPlayer.classList.add('translate-y-0', 'opacity-100');
+            } else {
+                miniPlayer.classList.remove('translate-y-0', 'opacity-100');
+                miniPlayer.classList.add('translate-y-32', 'opacity-0');
+            }
+        }
+
+        function toggleVideoPlayback() {
+            const video = document.getElementById('album-video');
+            const overlay = document.getElementById('video-overlay');
+
+            if(video.paused) {
+                if(isPlaying) pauseAudio();
+
+                video.play()
+                    .then(() => {
+                        overlay.classList.add('opacity-0', 'pointer-events-none');
+                        showSystemNotify("VISION COMMENCED", "Direct visual projection pipeline fully active.");
+                    });
+            } else {
+                video.pause();
+                overlay.classList.remove('opacity-0', 'pointer-events-none');
+            }
+        }
+
+        function copyShareLink() {
+            const url = window.location.href;
+            const tempInput = document.createElement('input');
+            document.body.appendChild(tempInput);
+            tempInput.value = url;
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            showSystemNotify("COORDINATES EXTRACTED", "Sovereign connection link cloned to clipboard.");
+        }
+
+        function showSystemNotify(title, msg) {
+            const modal = document.getElementById('notification-modal');
+            document.getElementById('notify-title').innerText = title;
+            document.getElementById('notify-msg').innerText = msg;
+
+            modal.classList.remove('translate-x-96', 'opacity-0');
+            modal.classList.add('translate-x-0', 'opacity-100');
+
+            setTimeout(() => {
+                modal.classList.add('translate-x-96', 'opacity-0');
+                modal.classList.remove('translate-x-0', 'opacity-100');
+            }, 3500);
+        }
+
+        function handleSubscribe(e) {
+            e.preventDefault();
+            document.getElementById('subscribe-form').classList.add('hidden');
+            document.getElementById('form-feedback').classList.remove('hidden');
+            showSystemNotify("REGISTRY LOCKED", "Your node matrix ID is integrated into the grid.");
+        }
+
+        function formatTime(seconds) {
+            if(isNaN(seconds)) return "0:00";
+            const min = Math.floor(seconds / 60);
+            const sec = Math.floor(seconds % 60);
+            return `${min}:${sec < 10 ? '0' : ''}${sec}`;
+        }
+
+        // Matrix Dripping Slime Background Canvas Engine
+        function initMatrixBackground() {
+            const canvas = document.getElementById('matrix-canvas');
+            const ctx = canvas.getContext('2d');
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            // Runic glyph arrays of ancient frequency manipulators
+            const alphabet = "𐎦𐎧𐎨𐎩𐎪𐎫𐎬𐎭𐎮𐎯𐎰𐎱𐎲𐎳𐎴𐎵𐎶𐎷𐎸𐎹𐎺𐎻𐎼𐎽𐎾𐎿01𝚵𝛀𝚽";
+            const fontSize = 14;
+            const columns = canvas.width / fontSize;
+
+            const rainDrops = [];
+            for (let x = 0; x < columns; x++) {
+                rainDrops[x] = 1;
+            }
+
+            function drawMatrix() {
+                ctx.fillStyle = 'rgba(4, 6, 4, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                for (let i = 0; i < rainDrops.length; i++) {
+                    const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                    
+                    // Alternating gold and slimy green drips
+                    ctx.fillStyle = (i % 5 === 0) ? '#C5A059' : '#1E3F20';
+                    ctx.font = fontSize + 'px monospace';
+                    
+                    ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
+                    if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        rainDrops[i] = 0;
+                    }
+                    rainDrops[i]++;
+                }
+            }
+            setInterval(drawMatrix, 35);
+        }
+    </script>
+</body>
+</html>
